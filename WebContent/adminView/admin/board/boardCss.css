@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.board-table {
+		border-top: 2px solid #000000;
+		border-bottom: 2px solid #000000;
+		width: 65%;
+		border-collapse: collapse;
+	}
+	.tr-th {
+		width:20%;
+	}
+	.border-left {
+		border-left:1px solid #cccccc;
+	}
+	.border-right {
+		border-right:1px solid #cccccc;
+	}
+	.border-bottom {
+		border-bottom:1px solid #cccccc;
+		
+	}
+	th, td{/* 테이블 아래위 간격띄움*/
+		padding: 10px 0px;
+	}

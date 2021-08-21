@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="adminBoard">
+	<insert id="insertAdminBoard" parameterClass="kr.or.ddit.adminBoard.vo.AdminBoardVO">
+		insert into TB_ADMIN_BOARD(CODE
+                    , BOARD_SEQ
+                    , USER_ID
+                    , BOARD_TITLE
+                    , BOARD_DATE
+                    , BOARD_CONTENT
+                    , ATCH_FILE_ID
+                    , BOARD_HITS
+                    , BOARD_DELETE)
+		VALUES(#code#
+				, SEQ_ADMIN_BOARD.NEXTVAL
+				, #userId#
+				, #boardTitle#
+				, sysdate
+				, #boardContent#
+				, #atchFileId#
+				, #boardHits#
+				, #boardDelete#)
+	</insert>
+	
+	<update id="updateAdminBoard" parameterClass="kr.or.ddit.adminBoard.vo.AdminBoardVO">
+		update TB_ADMIN_BOARD set BOARD_TITLE = #boardTitle#
+								  ,BOARD_CONTENT = #boardContent#
+								  ,ATCH_FILE_ID = #atchFileId#
+				WHERE BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<update id="deleteAdminBoard" parameterClass="long">
+		update TB_ADMIN_BOARD set BOARD_DELETE = 'Y'
+				WHERE BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<update id="countAdminBoard" parameterClass="long">
+		update TB_ADMIN_BOARD set BOARD_HITS = (BOARD_HITS + 1)
+				WHERE BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<select id="getAllAdminBoardList" parameterClass="kr.or.ddit.adminBoard.vo.AdminBoardVO" resultClass="kr.or.ddit.adminBoard.vo.AdminBoardVO">
+		select CODE             code
+		     , BOARD_SEQ        boardSeq
+		     , USER_ID          userId
+		     , BOARD_TITLE      boardTitle
+		     , TO_CHAR(BOARD_DATE,'YY-MM-DD')       boardDate
+		     , BOARD_CONTENT    boardContent
+		     , ATCH_FILE_ID     atchFileId
+		     , BOARD_HITS       boardHits
+		     , BOARD_DELETE     boardDelete
+		from TB_ADMIN_BOARD
+		where 1=1
+		and CODE = #code#
+		<isNotEmpty property="boardDelete">
+			and BOARD_DELETE = #boardDelete#
+		</isNotEmpty>
+		<isNotEmpty property="boardTitle">
+			and BOARD_TITLE = #boardTitle#
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			and USER_ID = #userId#
+		</isNotEmpty>
+		ORDER BY BOARD_SEQ DESC
+	</select>
+	
+<!-- 	<select id="getAllAdminBoardList" parameterClass="String" resultClass="kr.or.ddit.adminBoard.vo.AdminBoardVO"> -->
+<!-- 		select CODE             code -->
+<!-- 		     , BOARD_SEQ        boardSeq -->
+<!-- 		     , USER_ID          userId -->
+<!-- 		     , BOARD_TITLE      boardTitle -->
+<!-- 		     , BOARD_DATE       boardDate -->
+<!-- 		     , BOARD_CONTENT    boardContent -->
+<!-- 		     , ATCH_FILE_ID     atchFileId -->
+<!-- 		     , BOARD_HITS       boardHits -->
+<!-- 		     , BOARD_DELETE     boardDelete -->
+<!-- 		from TB_ADMIN_BOARD -->
+<!-- 		where 1=1 -->
+<!-- 		and CODE = #code# -->
+<!-- 		and BOARD_DELETE = 'N' -->
+<!-- 	</select> -->
+	
+	<select id="getSearchAdminBoard" parameterClass="kr.or.ddit.adminBoard.vo.AdminBoardVO" resultClass="kr.or.ddit.adminBoard.vo.AdminBoardVO">
+		select 	CODE                   code        
+			,	BOARD_SEQ              boardSeq    
+			,	USER_ID                userId      
+			,	BOARD_TITLE            boardTitle  
+			,	BOARD_DATE             boardDate   
+			,	BOARD_CONTENT          boardContent
+			,	ATCH_FILE_ID           atchFileId  
+			,	BOARD_HITS             boardHits   
+			,	BOARD_DELETE           boardDelete 
+		from TB_ADMIN_BOARD
+		where 1=1
+<!-- 		and BOARD_DELETE = 'N' -->
+		and CODE = #code#
+		<isNotEmpty>
+			and BOARD_SEQ = #boardSeq#
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAdminBoard" parameterClass="long" resultClass="kr.or.ddit.adminBoard.vo.AdminBoardVO">
+		select  CODE             code        
+			,	BOARD_SEQ        boardSeq    
+			,	USER_ID          userId      
+			,	BOARD_TITLE      boardTitle  
+			,	TO_CHAR(BOARD_DATE,'YY-MM-DD')       boardDate   
+			,	BOARD_CONTENT    boardContent
+			,	ATCH_FILE_ID     atchFileId  
+			,	BOARD_HITS       boardHits   
+			,	BOARD_DELETE     boardDelete 
+		from TB_ADMIN_BOARD
+		where 1=1
+		and BOARD_SEQ = #boardSeq#
+<!-- 		and BOARD_DELETE = 'N' -->
+	</select>
+	<select id="checkAdminBoard" parameterClass="Long" resultClass="int">
+		select count(*) as cnt
+		from TB_ADMIN_BOARD
+		where BOARD_SEQ = #boardSeq#
+	</select>
+</sqlMap>

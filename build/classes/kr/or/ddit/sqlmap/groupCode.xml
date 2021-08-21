@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="groupCode">
+
+	<insert id = "insertGroupCode" parameterClass="kr.or.ddit.groupCode.vo.GroupCodeInfoVO">
+
+		INSERT INTO TB_GROUP_CODE_INFO (
+			GROUP_CODE
+			, GROUP_CODE_NAME
+		) VALUES (
+			#groupCode#
+			, #groupCodeName#
+		)
+
+	</insert>
+
+	<update id="updateGroupCode" parameterClass="kr.or.ddit.groupCode.vo.GroupCodeInfoVO">
+
+		UPDATE	TB_GROUP_CODE_INFO
+		SET		GROUP_CODE_NAME = #groupCodeName#
+		WHERE	GROUP_CODE = #groupCode#
+
+	</update>
+
+	<!-- deleteGroupCode지만 USE_YN을 N으로 업데이트 -->
+	<update id="deleteGroupCode" parameterClass="java.lang.String">
+
+		UPDATE TB_GROUP_CODE_INFO
+		SET USE_YN = 'N'
+		WHERE GROUP_CODE = #groupCode#
+
+	</update>
+
+	<select id="getAllGroupCodeList" parameterClass="kr.or.ddit.groupCode.vo.GroupCodeInfoVO" resultClass="kr.or.ddit.groupCode.vo.GroupCodeInfoVO">
+
+		SELECT GROUP_CODE         groupCode
+			 , GROUP_CODE_NAME    groupCodeName
+			 , USE_YN             useYn
+	 	FROM TB_GROUP_CODE_INFO
+
+	</select>
+
+	<select id="getGroupCode" parameterClass="String" resultClass="kr.or.ddit.groupCode.vo.GroupCodeInfoVO">
+
+		SELECT GROUP_CODE         groupCode
+			 , GROUP_CODE_NAME    groupCodeName
+			 , USE_YN             useYn
+	 	FROM TB_GROUP_CODE_INFO
+	 	WHERE GROUP_CODE = #groupCode#
+
+	</select>
+
+</sqlMap>

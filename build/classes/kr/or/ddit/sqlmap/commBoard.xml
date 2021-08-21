@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="commBoard">
+
+ 
+ 	<insert id = "insertBoard" parameterClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+        INSERT INTO TB_COMM_BOARD
+	 		  	  (CODE, BOARD_SEQ, USER_ID, BOARD_TITLE, BOARD_DATE, BOARD_CONTENT, ATCH_FILE_ID)
+        	VALUES(#code#,SEQ_COMM_BOARD.NEXTVAL,#userId#,#boardTitle#, SYSDATE, #boardContent#, #atchFileId#)
+ 	</insert>
+	
+ 	<select id="getAllBoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate   
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>
+  	<select id="getAllClassBoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate  
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS403'
+ 		OR CODE = 'CLASS404'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAllDevBoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate   
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'DEV'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAllJobBoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'JOB'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAllSocialBoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate   
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'SOCIAL'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll401BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS401'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll402BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate  
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS402'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll403BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate  
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS403'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll404BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS404'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll405BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS405'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll406BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS406'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll407BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS407'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+  	<select id="getAll408BoardList" parameterClass="kr.or.ddit.common.vo.PagingVO" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		SELECT BB.* FROM (SELECT AA.*, ROWNUM AS RNUM
+ 		FROM
+ 		(SELECT CODE          code         
+			  ,BOARD_SEQ     boardSeq   
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate  
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+ 		FROM TB_COMM_BOARD
+ 		WHERE BOARD_DELETE = 'N'
+ 		AND CODE = 'CLASS408'
+ 		ORDER BY BOARD_SEQ DESC) AA)BB
+ 		WHERE RNUM BETWEEN #firstRecNo# and #lastRecNo#
+ 	</select>	
+ 
+ 	<update id="updateBoard" parameterClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+		Update TB_COMM_BOARD
+		Set   BOARD_TITLE = #boardTitle#
+			, CODE = #code#
+			, BOARD_CONTENT = #boardContent#
+			, BOARD_DATE = SYSDATE
+			, ATCH_FILE_ID = #atchFileId#
+		Where USER_ID = #userId#
+		and BOARD_SEQ = #boardSeq#
+	</update>
+
+	<update id="deleteBoard" parameterClass="long">
+		Update TB_COMM_BOARD
+		Set BOARD_DELETE = 'Y'
+		Where BOARD_SEQ = #boardSeq#
+	</update>
+ 	
+ 	<select id="getBoardAllCount" resultClass="int">
+	 		select count(*)
+	 		from TB_COMM_BOARD
+	 </select>
+ 	
+ 	<select id="getBoardInfo" parameterClass="long" resultClass="kr.or.ddit.commBoard.vo.CommBoardVO">
+ 		select CODE          code         
+			  ,BOARD_SEQ     boardSeq    
+			  ,USER_ID       userId      
+			  ,BOARD_TITLE   boardTitle  
+			  ,BOARD_DATE    boardDate 
+			  ,BOARD_CONTENT boardContent
+			  ,ATCH_FILE_ID  atchFileId 
+			  ,BOARD_HITS    boardHitsNumber   
+			  ,BOARD_DELETE  boardDelete 
+		  FROM TB_COMM_BOARD where board_seq = #boardSeq#
+ 	</select>
+ 	
+ 	<update id="countHitsEvent" parameterClass="long">
+		update TB_COMM_BOARD
+		set BOARD_HITS = (BOARD_HITS + 1)
+		where BOARD_SEQ = #boardSeq#
+	</update>
+</sqlMap>			

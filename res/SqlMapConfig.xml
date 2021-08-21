@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<!-- SQL설정파일 SqlMapConfig.properties와 연관 -->
+<sqlMapConfig>
+	<properties resource="SqlMapConfig.properties" /> 
+	
+	<!-- ibatis 환경 설정 부분 -->
+	<!-- useStatementNamespaces="true" 필수 ==> sqlMap/member.xml 연관 
+	smc.insert("member.insertMember", mv); 의 member.insertMember를 id로 인식함 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true" 
+		lazyLoadingEnabled="true" maxRequests="32" maxSessions="10"
+		maxTransactions="5" useStatementNamespaces="true" /> 
+	
+	<!-- 패키지 경로 Alias로 지정-->
+	<!-- 형식) <typeAlias alias="alias명" type="클래스의 풀네임"/>	 -->
+ 	<typeAlias alias="userAllVO" type="kr.or.ddit.userAll.vo.UserAllVO"/>
+ 	<typeAlias alias="userDditVO" type="kr.or.ddit.userDdit.vo.UserDditVO"/>
+
+	<!-- SqlMapConfig.properties 내 설정한 DB 연결 정보와 매핑 -->
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="${driver}" /> 
+			<property name="JDBC.ConnectionURL" value="${url}" />
+			<property name="JDBC.Username" value="${username}" />
+			<property name="JDBC.Password" value="${password}" />
+			<property name="Pool.MaximumActiveConnections" value="1"/> <!-- 커넥션 개수 1개 설 -->
+			<property name="Pool.MaximumIdleConnections" value="1"/>
+		</dataSource>
+	</transactionManager>
+
+<!-- ★중요 (쿼리 XML 연결부분)★ -->
+<!-- 처리할 SQL 문 xml 생성 후 <sqlMap resource="경로명/파일명.xml"/> 사용하여 연결 
+	xml 분리 예) 마이페이지, Qna, 공지사항 등 (게시판 CRUD 별로 쿼리 분리)-->
+		<sqlMap resource="kr/or/ddit/sqlmap/atchFile.xml" />
+		<sqlMap resource="kr/or/ddit/sqlmap/commBoard.xml" />
+		<sqlMap resource="kr/or/ddit/userAll/userAll.xml" /> <!-- 회원 전체 목록 -->
+		<sqlMap resource="kr/or/ddit/userDdit/userDdit.xml" /> <!-- 학원 회원 목록 -->
+		<sqlMap resource="kr/or/ddit/sqlmap/adminBoard.xml" />
+		<sqlMap resource="kr/or/ddit/sqlmap/qnaBoard.xml" />
+      	<sqlMap resource="kr/or/ddit/sqlmap/eventBoard.xml" />
+      	<sqlMap resource="kr/or/ddit/sqlmap/partyBoard.xml" /><!-- 밀파티 -->
+      	<sqlMap resource="kr/or/ddit/sqlmap/partyJoin.xml" /> <!-- 밀파티2 -->
+      	<sqlMap resource="kr/or/ddit/sqlmap/comment.xml" /> <!-- 댓글 -->
+      	<sqlMap resource="kr/or/ddit/sqlmap/groupCode.xml" /> <!-- 그룹코드 -->
+      	<sqlMap resource="kr/or/ddit/sqlmap/code.xml" /> <!-- 코드 -->
+      	<sqlMap resource="kr/or/ddit/blackList/blackList.xml" /> <!-- 블랙리스트 목록 -->
+      	<sqlMap resource="kr/or/ddit/restInfo/restInfo.xml" />
+      	<sqlMap resource="kr/or/ddit/restInfo/reviewBoard.xml" /> <!-- 식당 리뷰 -->
+      	<sqlMap resource="kr/or/ddit/restInfo/menu.xml" /> <!-- 메뉴 -->
+      	<sqlMap resource="kr/or/ddit/restInfo/restFav.xml" /> <!-- 메뉴 -->
+      	
+      	<sqlMap resource="kr/or/ddit/mypage/myPage.xml" /> <!-- 마이페이지-->
+      	
+</sqlMapConfig>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="qna">
+
+	<insert id="insertQnABoard" parameterClass="kr.or.ddit.qna.vo.QnABoardVO">
+		insert into TB_QNA_BOARD (
+			CODE
+			, BOARD_SEQ
+			, USER_ID
+			, BOARD_TYPE
+			, BOARD_TITLE
+			, BOARD_CONTENT
+			, BOARD_DATE
+			<isNotEmpty property="boardSecret">
+			, BOARD_SECRET
+			</isNotEmpty>
+			<isNotEmpty property="boardPw">
+			, BOARD_PW
+			</isNotEmpty>
+			, BOARD_ANSWER
+			, ATCH_FILE_ID
+			,BOARD_HITS
+			,BOARD_DELETE
+			)
+		values(
+			'QNA'
+			, SEQ_QNA_BOARD.NEXTVAL
+			, #userId# <!-- 변경 필수 -->
+			, '문의' <!-- 변경 필수 -->
+			, #boardTitle#
+			, #boardContent#
+			, SYSDATE
+			<isNotEmpty property="boardSecret">
+			, #boardSecret#
+			</isNotEmpty>
+			<isNotEmpty property="boardPw">
+			, #boardPw#
+			</isNotEmpty>
+			, 'N'
+			, #atchFileId#
+			, 0
+			, 'N'
+		)
+	</insert>
+	
+	<update id="updateQnABoard" parameterClass="kr.or.ddit.qna.vo.QnABoardVO">
+		update TB_QNA_BOARD
+		   set BOARD_TITLE = #boardTitle#
+		   		, BOARD_CONTENT = #boardContent#
+		   		, BOARD_DATE = sysdate
+		   		, BOARD_SECRET = #boardSecret#
+				, BOARD_PW = #boardPw#
+				, ATCH_FILE_ID = #atchFileId#
+		 where USER_ID = #userId#
+		   and BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<delete id="deleteQnABoard" parameterClass="long">
+		UPDATE TB_QNA_BOARD
+		SET BOARD_DELETE = 'Y'
+		WHERE BOARD_SEQ = #boardSeq#
+	</delete>
+	
+	<select id="getAllQnABoard" resultClass="kr.or.ddit.qna.vo.QnABoardVO">
+		SELECT 
+			  BOARD_SEQ     boardSeq    
+			, USER_ID       userId      
+			, BOARD_TYPE    boardType   
+			, BOARD_TITLE   boardTitle  
+			, BOARD_CONTENT boardContent
+			, TO_CHAR(BOARD_DATE,'MM-DD')    boardDate   
+			, BOARD_SECRET  boardSecret 
+			, BOARD_PW      boardPw     
+			, BOARD_ANSWER  boardAnswer 
+			, ATCH_FILE_ID  atchFileId 
+			, BOARD_HITS    boardHits   
+			, BOARD_DELETE  boardDelete 
+		FROM TB_QNA_BOARD 
+		WHERE BOARD_DELETE = 'N'
+		ORDER BY BOARD_SEQ DESC
+	</select>
+	
+	<select id="getQnABoard" parameterClass="long" resultClass="kr.or.ddit.qna.vo.QnABoardVO">
+		select 
+			  BOARD_SEQ     boardSeq    
+			, USER_ID       userId      
+			, BOARD_TYPE    boardType   
+			, BOARD_TITLE   boardTitle  
+			, BOARD_CONTENT boardContent
+			, TO_CHAR(BOARD_DATE,'MM-DD')    boardDate   
+			, BOARD_SECRET  boardSecret 
+			, BOARD_PW      boardPw     
+			, BOARD_ANSWER  boardAnswer 
+			, ATCH_FILE_ID  atchFileId 
+			, BOARD_HITS    boardHits   
+			, BOARD_DELETE  boardDelete 
+		from TB_QNA_BOARD
+		where board_seq = #boardSeq#
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="countHitsQnABoard" parameterClass="long">
+		update tb_qna_board
+		set board_hits = (board_hits +1)
+		where board_seq = #boardSeq#
+	</update>
+	
+</sqlMap>

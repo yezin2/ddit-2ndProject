@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="userall">
+	<select id="checkLoginUserAll" parameterClass="userAllVO" resultClass="userAllVO">
+		SELECT 	USER_ID	userId
+				,USER_PW userPw
+				,USER_TYPE userType
+				,USER_DELETE userDelete
+				,USER_PHOTO userPhoto
+				,USER_AUTH userAuth
+		FROM TB_USER_ALL
+		WHERE 	1=1
+				AND USER_ID = #userId#
+				AND USER_PW = #userPw#
+	</select>
+	
+	<select id="checkIdUserAll" parameterClass="String" resultClass="int">
+		SELECT 	count(*) cnt
+		FROM TB_USER_ALL
+		WHERE 	1=1
+				AND USER_ID = #userId#
+	</select>
+	
+	<select id="selectUserAllListAll" parameterClass="kr.or.ddit.userAll.vo.UserAllVO" resultClass="userAllVO">
+		SELECT 	USER_ID	userId
+				,USER_PW userPw
+				,USER_TYPE userType
+				,USER_DELETE userDelete
+				,USER_PHOTO userPhoto
+				,USER_AUTH userAuth
+		FROM TB_USER_ALL
+	</select>
+	
+	<insert id="insertUserAll" parameterClass="userAllVO" >
+		INSERT INTO TB_USER_ALL(
+		    USER_ID
+		    ,USER_PW
+		    ,USER_TYPE
+		    ,USER_DELETE
+		    ,USER_PHOTO)
+		VALUES(
+		    #userId#
+		    ,#userPw#
+		    ,#userType#
+		    ,#userDelete#
+		    ,#userPhoto#
+		)
+	</insert>
+	
+	<delete id="deleteUserAll" parameterClass="String">
+		Update TB_USER_ALL
+		Set USER_DELETE = 'Y'
+		Where USER_ID = #userId#
+	</delete>
+</sqlMap>

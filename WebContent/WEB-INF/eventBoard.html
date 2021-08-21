@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Enjoy your meal right on time! Main page</title>
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+
+<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"crossorigin="anonymous"></script>
+<!-- Google fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Jua&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="css/styles.css" rel="stylesheet" />
+	<style type="text/css">
+		h1, h2, li, a {
+			font-family: 'Jua', sans-serif;
+		}
+		
+		h3, h4, h5, h6, p {
+			font-family: 'Sunflower', sans-serif;
+			font-size: 1.2em;
+		}
+		
+		body {
+			padding-top: 56px;
+		}
+		.star-rating { width:205px; }
+		.star-rating,.star-rating span { display:inline-block; height:39px; overflow:hidden; background:url(assets/img/star.png)no-repeat; }
+		.star-rating span{ background-position:left bottom; line-height:0; vertical-align:top; }
+		.starR.on{background-position:0 0;}
+	</style>
+</head>
+
+<body>
+<form action="insert.do" method="post" enctype="multipart/form-data">
+<input type="hidden" name="code" value="개발통합커뮤니티">
+<input type="hidden" name="userId" value="세션전까지 아이디">
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand col-lg-2-h1" href="index.html">굿끼제먹</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse " id="navbarResponsive">
+				<ul class="navbar-nav ml-auto col-lg-7-h1">
+					<li class="nav-item"><a class="nav-link" href="#">이벤트 게시판</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">식당검색</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Meal파티
+							게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">커뮤니티 게시판</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">고객 센터</a></li>
+				</ul>
+			</div>
+			<div class="container col-sm-3">
+				<ul class="navbar-nav text-uppercase ml-auto">
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#contact">로그인</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#contact">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+      <!-- Sidebar Widgets Column -->
+	      <div class="col-md-4">
+	        <!-- Categories Widget -->
+	        <div class="card my-4">
+	          <h5 class="card-header">울트라콜 중인 세호불백</h5>
+	          <img class="col-12" src="assets/img/restau/seho.jpg">
+	          <div class="card-body">
+	            <div class="row">
+	              <div class="col-lg-12 justify-content-center">
+	              	<table class="table">
+						<tr class="d-flex">
+			              	<td class="col-lg-4">가격&nbsp;</td>
+			              	<td class="col-lg-5"><a class="btn btn-md btn-success">8000원</a></td>
+			              	<td class="col-lg-3"></td>
+	              		</tr>
+						<tr class="d-flex">
+			              	<td class="col-lg-4">거리&nbsp;</td>
+			              	<td class="col-lg-5"><a class="btn btn-md btn-info">10분(600m)</a></td>
+			              	<td class="col-lg-3"></td>
+	              		</tr>
+						<tr class="d-flex">
+			              	<td class="col-lg-4">분류&nbsp;</td>
+			              	<td class="col-lg-5"><a class="btn btn-md btn-danger">한식</a></td>
+			              	<td class="col-lg-3"></td>
+			              	
+	              		</tr>
+			              	<hr>
+						<tr class="d-flex">
+			              	<td class="col-lg-4">평점&nbsp;</td>
+			              	<td class="col-lg-8">
+<!-- 			              	<div class="starRev"> -->
+<!-- 							  <span class="starR on">별1</span> -->
+<!-- 							  <span class="starR">별2</span> -->
+<!-- 							  <span class="starR">별3</span> -->
+<!-- 							  <span class="starR">별4</span> -->
+<!-- 							  <span class="starR">별5</span> -->
+<!-- 							</div> -->
+						<span class='star-rating'>
+						<span style ="width:80%"></span>
+						</span>
+			              	</td>
+	              		</tr>
+						<tr class="d-flex">
+			              	<td class="col-lg-4">주력메뉴&nbsp;</td>
+			              	<td class="col-lg-5"><a class="btn btn-md btn-warning">뚝불</a></td>
+			              	<td class="col-lg-3"></td>
+	              		</tr>
+	              	</table>
+	              </div>
+	              <div class="col-lg-6">
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+		<!-- Search Widget -->
+	        <div class="card my-4 d-flex justify-content-end">
+	          <h5 class="card-header">다른식당 검색하러 가기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          <a class="btn btn-md btn-primary " href="">목록</a></h5>
+	          
+	          <div class="card-body">
+	            <div class="input-group">
+	              <input type="text" class="form-control" placeholder="식당이름으로 찾기">
+	              <span class="input-group-append">
+	                <button class="btn btn-secondary" type="button">찾기</button>
+	              </span>
+	            </div>
+	          </div>
+	        </div>
+	
+	      </div>
+			
+			<!-- Blog Entries Column -->
+			<div class="col-md-8">
+				<h1 class="my-4">
+					이벤트 게시판
+				</h1>
+				<!-- Blog Post -->
+				<div class="card mb-4">
+					<div class="card-footer text-muted col-12">
+					<h2 class="card-title">이벤트중인 식당 목록</h2>
+						<table class="table col-12">
+							<tbody class="col-12">
+								<tr class="d-flex justify-content-start">
+									<th class="col-6">식당이름</th>
+									<th class="col-2">가격</th>
+									<th class="col-2">거리</th>
+									<th class="col-2">분류</th>
+								</tr>
+								<tr class="d-flex justify-content-start">
+									<td class="col-6">롤린</td>
+									<td class="col-2">5000원</td>
+									<td class="col-2">3m</td>
+									<td class="col-2">한식 </td>
+								</tr>
+								<tr class="d-flex justify-content-start">
+									<td class="col-6">롤린</td>
+									<td class="col-2">6000원</td>
+									<td class="col-2">5m</td>
+									<td class="col-2">양식 </td>
+								</tr>
+								<tr class="d-flex justify-content-start">
+									<td class="col-6">롤린</td>
+									<td class="col-2">6000원</td>
+									<td class="col-2">5m</td>
+									<td class="col-2">양식 </td>
+								</tr>
+								<tr class="d-flex justify-content-start">
+									<td class="col-6">헤이</td>
+									<td class="col-2">6000원</td>
+									<td class="col-2">5m</td>
+									<td class="col-2">양식 </td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+				<!-- Pagination -->
+				<ul class="pagination justify-content-center mb-4">
+					<li class="page-item"><a class="page-link" href="#">&larr;
+							Older</a></li>
+					<li class="page-item disabled"><a class="page-link" href="#">Newer
+							&rarr;</a></li>
+				</ul>
+
+			</div>
+
+
+		</div>
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright © 그런거 없어요. 대덕인재개발원  ddit 202101</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- 별점주기 -->
+		<script type="text/javascript">
+		$('.starRev span').click(function(){
+			  $(this).parent().children('span').removeClass('on');
+			  $(this).addClass('on').prevAll('span').addClass('on');
+			  return false;
+			});
+		</script>
+	<!-- Bootstrap core JS-->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Third party plugin JS-->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+	<!-- Core theme JS-->
+		<script src="js/scripts.js"></script>
+</form>
+</body>
+</html>

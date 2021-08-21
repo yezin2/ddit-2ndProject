@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="event">
+
+	<insert id="insertEvent" parameterClass="kr.or.ddit.event.vo.EventVO">
+		Insert into TB_EVENT_BOARD(
+				  CODE
+				, BOARD_SEQ
+				, USER_ID
+				, BOARD_TYPE
+				, BOARD_TITLE
+				, BOARD_CONTENT
+				, BOARD_DATE
+				, BOARD_START
+				, BOARD_END
+				, ATCH_FILE_ID
+				, BOARD_HITS
+				, BOARD_DELETE 
+				)
+		Values(
+				  #code#		
+				, SEQ_EVENT_BOARD.NEXTVAL
+				, #userId#	<!-- 변경 필수 -->
+				, 'EVENT'			<!-- 변경 필수 -->
+				, #boardTitle#
+				, #boardContent#
+				, SYSDATE
+				, SYSDATE
+				, #boardEnd#
+				, #atchFileId#
+				, 0
+				, 'N'
+				)
+	</insert>
+	
+	<update id="updateEvent" parameterClass="kr.or.ddit.event.vo.EventVO">
+		Update TB_EVENT_BOARD
+		Set   BOARD_TITLE = #boardTitle#
+			, BOARD_CONTENT = #boardContent#
+			, BOARD_DATE = SYSDATE
+			, BOARD_END = #boardEnd#
+			, ATCH_FILE_ID = #atchFileId#
+		Where USER_ID = #userId#
+		and BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<delete id="deleteEvent" parameterClass="long">
+		Update TB_EVENT_BOARD
+		Set BOARD_DELETE = 'Y'
+		Where BOARD_SEQ = #boardSeq#
+	</delete>
+	
+	<select id="getAllEvent" resultClass="kr.or.ddit.event.vo.EventVO">
+		Select 
+			  CODE			code
+			, BOARD_SEQ		boardSeq
+			, USER_ID		userId
+			, BOARD_TYPE	boardType
+			, BOARD_TITLE	boardTitle
+			, BOARD_CONTENT	boardContent
+			, TO_CHAR(BOARD_DATE, 'MM-DD')	boardDate
+			, TO_CHAR(BOARD_START, 'MM-DD')	boardStart
+			, TO_CHAR(BOARD_END, 'MM-DD'	)		boardEnd
+			, ATCH_FILE_ID	atchFileId
+			, BOARD_HITS	boardHits
+			, BOARD_DELETE 	boardDelete
+		From TB_EVENT_BOARD
+		Where BOARD_DELETE = 'N'
+	</select>
+	
+	<select id="getRestInfo" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		Select 
+			  A.REST_CODE	      restCode
+			, A.USER_ID           userId
+			, A.REST_CEO_NAME     restCeoName
+			, A.REST_REG_NUM      restRegNum
+			, A.REST_TYPE         restType
+			, A.REST_NAME         restName
+			, A.REST_DISTANCE     restDistance
+			, A.REST_ZIP          restZip
+			, A.REST_ADD1         restAdd1
+			, A.REST_ADD2         restAdd2
+			, A.REST_TEL          restTel
+			, A.REST_LAT          restLat
+			, A.REST_LNG          restLng
+			, A.REST_REVIEW_CNT   restReviewCnt
+			, A.REST_FAV_CNT      restFavCnt
+			, A.REST_SCORE_AVR    restScoreAvr
+			, A.ATCH_FILE_ID      atchFileId
+			, A.ATCH_REG_ID       atchRegId
+		From TB_REST_INFO A, TB_EVENT_BOARD B
+		Where A.USER_ID = B.USER_ID
+	</select>
+	
+	<select id="getEvent" parameterClass="long" resultClass="kr.or.ddit.event.vo.EventVO">
+		Select
+		  	  CODE			code
+			, BOARD_SEQ		boardSeq
+			, USER_ID		userId
+			, BOARD_TYPE	boardType
+			, BOARD_TITLE	boardTitle
+			, BOARD_CONTENT	boardContent
+			, BOARD_DATE	boardDate
+			, BOARD_START	boardStart
+			, BOARD_END		boardEnd
+			, ATCH_FILE_ID	atchFileId
+			, BOARD_HITS	boardHits
+			, BOARD_DELETE 	boardDelete
+		From TB_EVENT_BOARD
+		Where BOARD_SEQ = #boardSeq#
+	</select>
+	
+	<select id="getRest" parameterClass="String" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		Select 
+			  REST_CODE	       restCode
+			, USER_ID           userId
+			, REST_CEO_NAME     restCeoName
+			, REST_REG_NUM      restRegNum
+			, REST_TYPE         restType
+			, REST_NAME         restName
+			, REST_DISTANCE     restDistance
+			, REST_ZIP          restZip
+			, REST_ADD1         restAdd1
+			, REST_ADD2         restAdd2
+			, REST_TEL          restTel
+			, REST_LAT          restLat
+			, REST_LNG          restLng
+			, REST_REVIEW_CNT   restReviewCnt
+			, REST_FAV_CNT      restFavCnt
+			, REST_SCORE_AVR    restScoreAvr
+			, ATCH_FILE_ID      atchFileId
+			, ATCH_REG_ID       atchRegId
+		From TB_REST_INFO
+		Where USER_ID = #userId#
+	</select>
+		
+	<!-- 조회수 -->
+	<update id="countHitsEvent" parameterClass="long">
+		update TB_EVENT_BOARD
+		set BOARD_HITS = (BOARD_HITS + 1)
+		where BOARD_SEQ = #boardSeq#
+	</update>
+	
+</sqlMap>

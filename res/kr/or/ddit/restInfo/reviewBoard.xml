@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="review">
+
+	<insert id="insertReview" parameterClass="kr.or.ddit.review.vo.ReviewVO">
+		INSERT into TB_REVIEW_BOARD(
+			  CODE			
+			, BOARD_SEQ    
+			, REST_CODE
+			, USER_ID
+			, BOARD_TITLE
+			, BOARD_DATE
+			, BOARD_CONTENT
+			, REST_SCORE   
+			, ATCH_FILE_ID 
+			, ATCH_BILL_ID 
+			, BOARD_HITS   
+			, BOARD_DELETE 
+			)
+		VALUES(
+			  'REVIEW'
+			, SEQ_REVIEW_BOARD.NEXTVAL
+			, #restCode#
+			, #userId#
+			, #boardTitle#
+			, sysdate
+			, #boardContent#
+			, #restScore#
+			, -1
+			, -1
+			, 0
+			, 'N'
+		)
+	</insert>
+	
+	<update id="updateReview" parameterClass="kr.or.ddit.review.vo.ReviewVO">
+		UPDATE TB_REVIEW_BOARD
+		SET 
+			BOARD_TITLE   = #boardTitle#
+			, BOARD_DATE    = SYSDATE
+			, BOARD_CONTENT = #boardContent#
+			, REST_SCORE    = #restScore#
+			, ATCH_FILE_ID  = #atchFileId#
+			, ATCH_BILL_ID  = #atchBillId#
+		WHERE USER_ID = #userId#
+		and BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<delete id="deleteReview" parameterClass="long">
+		UPDATE TB_REVIEW_BOARD
+		SET BOARD_DELETE = 'Y'
+		WHERE BOARD_SEQ = #boardSeq#
+	</delete>
+	
+	<select id="getAllReview" resultClass="kr.or.ddit.review.vo.ReviewVO">
+		SELECT 
+			  CODE			code
+			, BOARD_SEQ     boardSeq
+			, REST_CODE     restCode
+			, USER_ID       userId
+			, BOARD_TITLE   boardTitle
+			, BOARD_DATE    boardDate
+			, BOARD_CONTENT boardContent
+			, REST_SCORE    restScore
+			, ATCH_FILE_ID  atchFileId
+			, ATCH_BILL_ID  atchBillId
+			, BOARD_HITS    boardHits
+			, BOARD_DELETE  boardDelete
+		FROM TB_REVIEW_BOARD
+		WHERE BOARD_DELETE = 'N'
+	</select>
+	
+	<select id="getRestInfo" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		SELECT
+			  A.REST_CODE	      restCode
+			, A.USER_ID           userId
+			, A.REST_CEO_NAME     restCeoName
+			, A.REST_REG_NUM      restRegNum
+			, A.REST_TYPE         restType
+			, A.REST_NAME         restName
+			, A.REST_DISTANCE     restDistance
+			, A.REST_ZIP          restZip
+			, A.REST_ADD1         restAdd1
+			, A.REST_ADD2         restAdd2
+			, A.REST_TEL          restTel
+			, A.REST_LAT          restLat
+			, A.REST_LNG          restLng
+			, A.REST_REVIEW_CNT   restReviewCnt
+			, A.REST_FAV_CNT      restFavCnt
+			, A.REST_SCORE_AVR    restScoreAvr
+			, A.ATCH_FILE_ID      atchFileId
+			, A.ATCH_REG_ID       atchRegId
+		FROM TB_REST_INFO A, TB_REVIEW_BOARD B
+		WHERE A.USER_ID = B.USER_ID-
+	</select>
+	
+	<select id="restReview" parameterClass="String" resultClass="kr.or.ddit.review.vo.ReviewVO">
+		SELECT 
+			  A.CODE			code
+			, A.BOARD_SEQ     boardSeq
+			, A.REST_CODE     restCode
+			, A.USER_ID       userId
+			, A.BOARD_TITLE   boardTitle
+			, A.BOARD_DATE    boardDate
+			, A.BOARD_CONTENT boardContent
+			, A.REST_SCORE    restScore
+			, A.ATCH_FILE_ID  atchFileId
+			, A.ATCH_BILL_ID  atchBillId
+			, A.BOARD_HITS    boardHits
+			, A.BOARD_DELETE  boardDelete
+		FROM TB_REVIEW_BOARD A, TB_REST_INFO B
+		WHERE A.REST_CODE = B.REST_CODE
+		AND   A.REST_CODE = #restCode#
+		AND A.BOARD_DELETE = 'N'
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="partyJoin">
+
+	<insert id="insertPartyJoin" parameterClass="kr.or.ddit.partyJoin.vo.PartyJoinVO">
+		INSERT INTO TB_PARTY_JOIN (
+			BOARD_SEQ
+			, USER_ID
+			, USER_PROFILE
+		)
+		VALUES (
+			#boardSeq#
+			, #userId#
+			, #userProfile#
+		)
+	</insert>
+	
+	<delete id="deletePartyJoin" parameterClass="kr.or.ddit.partyJoin.vo.PartyJoinVO">
+		DELETE FROM TB_PARTY_JOIN
+		WHERE  BOARD_SEQ = #boardSeq#
+		AND    USER_ID = #userId#
+	</delete>
+	
+	<select id="getListJoinMember" parameterClass="long" resultClass="kr.or.ddit.partyJoin.vo.PartyJoinVO">
+		SELECT USER_ID userId
+			   , USER_PROFILE userProfile
+		FROM   TB_PARTY_JOIN
+		WHERE  BOARD_SEQ = #boardSeq#
+	</select>
+
+	<select id="countJoinMember" parameterClass="long" resultClass="int">
+		SELECT COUNT(*) joinMember
+		FROM   TB_PARTY_JOIN
+		WHERE  BOARD_SEQ = #boardSeq#
+	</select>
+
+</sqlMap>

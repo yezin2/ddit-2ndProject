@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="mypage">
+		
+	<!-- 마이페이지 내가 쓴 문의 게시글 목록 -->
+	<select id="listMyPageQna" parameterClass="kr.or.ddit.qna.vo.QnABoardVO" resultClass="kr.or.ddit.qna.vo.QnABoardVO">
+		select 
+				  USER_ID       userId      
+				, BOARD_SEQ     boardSeq    
+				, BOARD_TYPE    boardType   
+				, BOARD_TITLE   boardTitle  
+				, BOARD_CONTENT boardContent
+				, TO_CHAR(BOARD_DATE, 'MM-DD')    boardDate   
+				, BOARD_SECRET  boardSecret 
+				, BOARD_PW      boardPw     
+				, BOARD_ANSWER  boardAnswer 
+				, ATCH_FILE_ID  atchFileId 
+				, BOARD_HITS    boardHits   
+				, BOARD_DELETE  boardDelete 
+			from TB_QNA_BOARD
+		where BOARD_DELETE = 'N' AND  USER_ID = #userId#
+	</select>
+	
+	<!-- 마이페이지 내가 쓴 댓글 목록 -->
+	<select id="listMyPageComment" parameterClass="kr.or.ddit.comment.vo.CommentVO" resultClass="kr.or.ddit.comment.vo.CommentVO">
+		SELECT 
+		    CODE code
+		    ,REPLY_SEQ replySeq
+		    ,USER_ID userId
+		    ,TO_CHAR(REPLY_DATE, 'MM-DD') replyDate
+		    ,REPLY_CONTENT replyContent
+		    ,REPLY_DELETE replyDelete
+		    ,BOARD_SEQ boardSeq
+		FROM TB_COMMENT 
+		WHERE 1=1 
+		AND USER_ID = #userId#
+		AND REPLY_DELETE = 'N'
+	</select>
+	
+	<!-- 마이페이지 내가 쓴 리뷰 목록 -->
+	<select id="listMyPageReview" parameterClass="kr.or.ddit.review.vo.ReviewVO" resultClass="kr.or.ddit.review.vo.ReviewVO">
+		SELECT A.REST_CODE restCode 
+		    , (select B.REST_NAME from TB_REST_INFO B where B.REST_CODE = A.REST_CODE) restName
+		    , A.USER_ID userId 
+		    , TO_CHAR(A.BOARD_DATE, 'MM-DD') boardDate
+		    , A.BOARD_TITLE boardTitle
+		FROM TB_REVIEW_BOARD A
+		WHERE 1=1 
+		AND A.BOARD_DELETE='N' 
+		AND A.USER_ID= #userId#
+	</select>
+	
+	<!-- 마이페이지 내가 모집한 Meal 파티 -->
+	<select id="listMyPagePartyBoard" parameterClass="kr.or.ddit.partyBoard.vo.PartyBoardVO" resultClass="kr.or.ddit.partyBoard.vo.PartyBoardVO">
+		SELECT BOARD_SEQ boardSeq
+		    , BOARD_TITLE boardTitle
+		    , TO_CHAR(BOARD_DATE, 'MM-DD') boardDate
+		FROM TB_PARTY_BOARD
+		WHERE 1=1
+			AND USER_ID = #userId#
+	</select>
+</sqlMap>

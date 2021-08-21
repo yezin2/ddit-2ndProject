@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="restFav">
+	<select id="getUserAboutRest" parameterClass="String" resultClass="int">
+		SELECT COUNT(*) cnt
+		FROM TB_FAVORITE
+		WHERE REST_CODE = #restCode#
+	</select>
+	
+	<select id="getRestAboutUser" parameterClass="String" resultClass="kr.or.ddit.restInfo.vo.RestFavVO">
+		SELECT REST_CODE restCode
+		FROM TB_FAVORITE
+		WHERE 1=1
+		AND USER_ID = #userId#
+		
+	</select>
+	
+	<select id="getRestInfoAboutUser" parameterClass="String" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		SELECT A.REST_CODE restCode 
+			 , (select B.REST_NAME from TB_REST_INFO B where B.REST_CODE = A.REST_CODE) restName
+			 , (select B.REST_TEL from TB_REST_INFO B where B.REST_CODE = A.REST_CODE) restTel
+		FROM TB_FAVORITE A
+		WHERE 1=1 
+		AND A.USER_ID= #userId#
+	</select>
+	
+	<insert id="insertDips" parameterClass="kr.or.ddit.restInfo.vo.RestFavVO">
+		INSERT INTO TB_FAVORITE(USER_ID, REST_CODE)
+		VALUES(#userId#, #restCode#)
+	</insert>
+	
+	<delete id="deleteDips" parameterClass="kr.or.ddit.restInfo.vo.RestFavVO">
+		DELETE FROM TB_FAVORITE
+	    WHERE 1=1
+	    AND USER_ID = #userId#
+	    AND REST_CODE = #restCode#
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="code">
+
+	<insert id="insertCode" parameterClass="kr.or.ddit.code.vo.CodeVO">
+
+		INSERT INTO TB_CODE (
+			GROUP_CODE
+			, CODE
+			, CODE_NAME
+			, DESCRIPTION
+			, USE_YN
+		) VALUES (
+			#groupCode#
+			, #code#
+			, #codeName#
+			, #description#
+			, 'Y'
+		)
+
+	</insert>
+
+	<update id="updateCode" parameterClass="kr.or.ddit.code.vo.CodeVO">
+
+		UPDATE TB_CODE
+		SET CODE = #code#
+			, CODE_NAME = #codeName#
+		WHERE 1 = 1
+		AND CODE = #code#
+
+	</update>
+
+	<!-- deleteCode지만 USE_YN을 N으로 업데이트 -->
+	<update id="deleteCode" parameterClass="String">
+
+		UPDATE TB_CODE
+		SET USE_YN = 'N'
+		WHERE 1 = 1
+		AND CODE = #code#
+
+	</update>
+
+	<select id="getAllCodeList" parameterClass="kr.or.ddit.code.vo.CodeVO" resultClass="kr.or.ddit.code.vo.CodeVO">
+
+		SELECT GROUP_CODE     groupCode
+			 , CODE           code
+			 , CODE_NAME      codeName
+			 , DESCRIPTION    description
+			 , USE_YN         useYn
+	 	FROM TB_CODE
+	 	ORDER BY GROUP_CODE, CODE
+
+	</select>
+
+	<select id="getCodeList" parameterClass="String" resultClass="kr.or.ddit.code.vo.CodeVO">
+
+		SELECT GROUP_CODE     groupCode
+			 , CODE           code
+			 , CODE_NAME      codeName
+			 , DESCRIPTION    description
+			 , USE_YN         useYn
+	 	FROM TB_CODE
+	 	WHERE GROUP_CODE = #groupCode#
+	 	ORDER BY CODE
+
+	</select>
+
+	<select id="getCode" parameterClass="String" resultClass="kr.or.ddit.code.vo.CodeVO">
+
+		SELECT GROUP_CODE     groupCode
+			 , CODE           code
+			 , CODE_NAME      codeName
+			 , DESCRIPTION    description
+			 , USE_YN         useYn
+	 	FROM TB_CODE
+	 	WHERE 1 = 1
+	 	AND CODE = #code#
+	</select>
+
+</sqlMap>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<!-- stylesheet -->     
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
+	<!-- javascript -->     
+	<script src="https://d3js.org/d3.v3.min.js"></script>     
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+	<!-- css -->
+	<style>
+	.c3 svg{font:10px sans-serif;-webkit-tap-highlight-color:transparent}.c3 line,.c3 path{fill:none;stroke:#000}.c3 text{-webkit-user-select:none;-moz-user-select:none;user-select:none}.c3-bars path,.c3-event-rect,.c3-legend-item-tile,.c3-xgrid-focus,.c3-ygrid{shape-rendering:crispEdges}.c3-chart-arc path{stroke:#fff}.c3-chart-arc text{fill:#fff;font-size:13px}.c3-grid line{stroke:#aaa}.c3-grid text{fill:#aaa}.c3-xgrid,.c3-ygrid{stroke-dasharray:3 3}.c3-text.c3-empty{fill:gray;font-size:2em}.c3-line{stroke-width:1px}.c3-circle._expanded_{stroke-width:1px;stroke:#fff}.c3-selected-circle{fill:#fff;stroke-width:2px}.c3-bar{stroke-width:0}.c3-bar._expanded_{fill-opacity:.75}.c3-target.c3-focused{opacity:1}.c3-target.c3-focused path.c3-line,.c3-target.c3-focused path.c3-step{stroke-width:2px}.c3-target.c3-defocused{opacity:.3!important}.c3-region{fill:#4682b4;fill-opacity:.1}.c3-brush .extent{fill-opacity:.1}.c3-legend-item{font-size:12px}.c3-legend-item-hidden{opacity:.15}.c3-legend-background{opacity:.75;fill:#fff;stroke:#d3d3d3;stroke-width:1}.c3-title{font:14px sans-serif}.c3-tooltip-container{z-index:10}.c3-tooltip{border-collapse:collapse;border-spacing:0;background-color:#fff;empty-cells:show;-webkit-box-shadow:7px 7px 12px -9px #777;-moz-box-shadow:7px 7px 12px -9px #777;box-shadow:7px 7px 12px -9px #777;opacity:.9}.c3-tooltip tr{border:1px solid #CCC}.c3-tooltip th{background-color:#aaa;font-size:14px;padding:2px 5px;text-align:left;color:#FFF}.c3-tooltip td{font-size:13px;padding:3px 6px;background-color:#fff;border-left:1px dotted #999}.c3-tooltip td>span{display:inline-block;width:10px;height:10px;margin-right:6px}.c3-tooltip td.value{text-align:right}.c3-area{stroke-width:0;opacity:.2}.c3-chart-arcs-title{dominant-baseline:middle;font-size:1.3em}.c3-chart-arcs .c3-chart-arcs-background{fill:#e0e0e0;stroke:none}.c3-chart-arcs .c3-chart-arcs-gauge-unit{fill:#000;font-size:16px}.c3-chart-arcs .c3-chart-arcs-gauge-max,.c3-chart-arcs .c3-chart-arcs-gauge-min{fill:#777}.c3-chart-arc .c3-gauge-value{fill:#000}
+	
+	.c3-area {
+	  opacity:1;
+	}
+	</style>
+</head>
+<body>
+<div id="linechart"></div>
+<div id="areachart"></div>
+<div id="areachart2"></div>
+<div id="piechart"></div>
+<div id="combochart"></div>
+<div id="bubblechart"></div>
+<script>
+var chart = c3.generate({
+	  bindto: "#linechart",
+	  data: {
+	    columns: [
+	      ['data1', 30, 200, 100, 400, 150, 250],
+	      ['data2', 50, 20, 10, 40, 15, 25]
+	    ]
+	  }
+	});
+
+var areachart = c3.generate({
+	  bindto: "#areachart",
+	  data: {
+	    columns: [
+	      ['data1', 300, 350, 300, 190, 50, 25],
+	      ['data2', 130, 100, 140, 200, 150, 50]
+	    ],
+	    types: {
+	      data1: 'area-spline',
+	      data2: 'area-spline'
+	    }
+	  }
+	});
+	
+var areachart2 = c3.generate({
+	  bindto: "#areachart2",
+	  data: {
+	    columns: [
+	      ['upper', 120, 180, 270, 400, 570, 800, 1150],
+	      ['data', 100, 150, 225, 350, 500, 700, 1000],
+	      ['lower', 80, 120, 180, 300, 430, 600,850]
+	    ],
+	    types: {
+	      data: 'spline',
+	      upper: 'area-spline',
+	      lower: 'area-spline'
+	    },
+	    colors: {
+	      data: "#000",
+	      upper: "rgb(165,194,230)",
+	      lower: "#fff",
+	    }
+	  },
+	  legend: {
+	    show: false,
+	  },
+	  point: {
+	    show: false,
+	  }
+	});
+	
+var pieData = {
+		  사과: 500,
+		  호두: 200,
+		  블루베리: 666,
+		  치즈: 54,
+		  딸기: 120
+		};
+		var chartDonut = c3.generate({
+		  bindto: "#piechart",
+		  data: {
+		    json: [pieData],
+		    keys: {
+		      value: Object.keys(pieData),
+		    },
+		    type: "donut",
+		  },
+		  donut: {
+		    title: "파이의 종류",
+		  },
+		});
+
+		var chartDonutColors = chartDonut.data.colors();
+		$("#text-apple").css("color", chartDonutColors["사과"]);
+		$("#text-walnut").css("color", chartDonutColors["호두"]);
+		$("#text-berry").css("color", chartDonutColors["블루베리"]);
+		$("#text-cheese").css("color", chartDonutColors["치즈"]);
+		$("#text-strawberry").css("color", chartDonutColors["딸기"]);
+		
+		
+		
+		var chart = c3.generate({
+			  bindto: "#combochart",
+			  data: {
+			    x: "year",
+			    columns: [
+			      ["year", "55세", "56세", "57세", "58세", "59세", "60세", "61세", "62세", "63세", "64세", "65세", "66세", "67세", "68세", "69세", "70세", "71세"],
+			      ["pension1", 1000, 900, 850, 800, 760, 720, 680, 640, 600, 600, 600, 600, 600, 600, 600, 600, 600],
+			      ["pension2", 800, 700, 600, 500, 400, 300, 200, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			      ["pension3", 400, 500, 600, 650, 600, 550, 500, 400, 300, 300, 300, 300, 300, 300, 300, 300, 300],
+			      ["pension4", 200, 100, 300, 350, 400, 420, 450, 400, 370, 370, 370, 370, 370, 370, 370, 370, 370],
+			      ["total", 2400, 2200, 2350, 2300, 2160, 2010, 1830, 1540, 1270, 1270, 1270, 1270, 1270, 1270, 1270, 1270, 1270],
+			    ],
+			    types: {
+			      pension1: "area",
+			      pension2: "area-spline",
+			      pension3: "area",
+			      pension4: "area-spline",
+			      total: "bar",
+			    },
+			    colors: {
+			      total: "#1ab394",
+			      pension1: "#337ab7",
+			      pension2: "#328cc1",
+			      pension3: "#329ecb",
+			      pension4: "#31b0d5",
+			    },
+			  },
+			  bar: {
+			    width: {
+			      ratio: 0.2,            
+			    },
+			  },
+			  axis: {
+			    x: {
+			      type: "category",
+			    },
+			  },
+			});
+		
+		
+		var chart = c3.generate({
+			bindto: "#scatterplot",
+		  data: {
+		    xs: {
+		      setosa: 'setosa_x',
+		      versicolor: 'versicolor_x',
+		    },
+		    // iris data from R
+		    columns: [
+		      ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
+		      ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
+		      ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+		      ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+		    ],
+		    type: 'scatter'
+		  },
+		  axis: {
+		    x: {
+		      label: 'Sepal.Width',
+		      tick: {
+		        fit: false
+		      }
+		    },
+		    y: {
+		      label: 'Petal.Width'
+		    }
+		  }
+		});
+
+		var dataRadius = [15, 12, 6, 30, 36, 9, 45];
+		var chartScatter = c3.generate({
+		  bindto: "#bubblechart",
+		  data: {
+		    x: "data_x",
+		    columns: [
+		      ["data_x", 5, 2, 8, 10, 25, 16, 50],
+		      ["data_y", 10, 20, 30, 40, 16, 35, 8],
+		    ],
+		    type: "scatter",
+		  },
+		  point: {
+		    r: function(d) {
+		      return dataRadius[d.index];
+		    },
+		  },
+		  legend: {
+		    show: false,
+		  },
+		  grid: {
+		    x: {
+		      show: true,
+		    },
+		    y: {
+		      show: true,
+		    },
+		  },
+		});
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="blacklist">
+	<insert id="insertBlackList" parameterClass="kr.or.ddit.blackList.vo.BlackListVO" >
+		INSERT INTO TB_BLACKLIST(
+		    USER_ID
+		    ,BLACK_REASON
+		    ,BLACK_DATE
+		    ,BLACK_DELETE
+		) VALUES (
+		    #userId#
+		    ,#blackReason#
+		    ,sysdate
+		    ,'N'
+		)
+	</insert>
+	
+	<delete id="deleteBlackList" parameterClass="String">
+		Update TB_BLACKLIST
+		Set BLACK_DELETE = 'Y'
+		Where USER_ID = #userId#
+	</delete>
+	
+	<select id="getAllBlackListList" resultClass="kr.or.ddit.blackList.vo.BlackListVO">
+		SELECT USER_ID userId
+    		,BLACK_REASON blackReason
+    		,BLACK_DATE blackDate
+    		,BLACK_DELETE blackDelete
+		FROM TB_BLACKLIST
+	</select>
+</sqlMap>

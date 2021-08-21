@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="partyBoard">
+	
+	<insert id="insertPartyBoard" parameterClass="kr.or.ddit.partyBoard.vo.PartyBoardVO">
+		INSERT INTO TB_PARTY_BOARD (
+			CODE
+			, BOARD_SEQ
+			, USER_ID
+			, USER_PROFILE
+			, BOARD_TITLE
+			, BOARD_DATE
+			, BOARD_CONTENT
+			  <isNotEmpty property="restCode">
+			, REST_CODE
+			  </isNotEmpty>
+			  <isNotEmpty property="price">
+			, PRICE
+			  </isNotEmpty>
+			  <isNotEmpty property="distance">
+			, DISTANCE
+			  </isNotEmpty>
+			  <isNotEmpty property="distance">
+			, REST_TYPE
+			  </isNotEmpty>
+			, PARTY_YN
+			, PARTY_END
+			, BOARD_HIT
+			, BOARD_DELETE
+		)
+		VALUES (
+			#code#
+			, SEQ_PARTY_BOARD.NEXTVAL
+			, #userId#
+			, #userProfile#
+			, #boardTitle#
+			, SYSDATE
+			, #boardContent#
+			  <isNotEmpty property="restCode">
+			, #restCode#
+			  </isNotEmpty>
+			  <isNotEmpty property="price">
+			, #price#
+			  </isNotEmpty>
+			  <isNotEmpty property="distance">
+			, #distance#
+			  </isNotEmpty>
+			  <isNotEmpty property="restType">
+			, #restType#
+			  </isNotEmpty>
+			, #partyYn#
+			, #partyEnd#
+			, #boardHit#
+			, #boardDelete#
+		)
+	</insert>
+	
+	<update id="updatePartyBoard" parameterClass="kr.or.ddit.partyBoard.vo.PartyBoardVO">
+		UPDATE TB_PARTY_BOARD
+		SET	   BOARD_TITLE = #boardTitle#
+			   , BOARD_CONTENT = #boardContent#
+			   , REST_CODE = #restCode#
+			   , PRICE = #price#
+			   , DISTANCE = #distance#
+			   , REST_TYPE = #restType#
+			   , PARTY_END = #partyEnd#
+		WHERE  USER_ID = #userId#
+		AND    BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<update id="updatePartyStatus" parameterClass="long">
+		UPDATE TB_PARTY_BOARD
+		SET    PARTY_YN = 'Y'
+		WHERE  BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<update id="deletePartyBoard" parameterClass="long">
+		UPDATE TB_PARTY_BOARD
+		SET    BOARD_DELETE = 'Y'
+		WHERE  BOARD_SEQ = #boardSeq#
+	</update>
+	
+	<select id="getPartyBoard" parameterClass="long" resultClass="kr.or.ddit.partyBoard.vo.PartyBoardVO">
+		SELECT 
+		A.CODE                								code
+		,A.BOARD_SEQ          								boardSeq
+		,A.USER_ID            								userId
+		,A.USER_PROFILE										userProfile
+		,A.BOARD_TITLE        								boardTitle
+		,TO_CHAR(A.BOARD_DATE, 'MM-DD')         				boardDate
+		,A.BOARD_CONTENT      								boardContent
+		,A.REST_CODE          								restCode
+		,(SELECT REST_NAME FROM TB_REST_INFO WHERE REST_CODE = A.REST_CODE) restName
+		,A.PRICE              								price
+		,A.DISTANCE           								distance
+		,A.REST_TYPE											restType
+		,A.PARTY_YN           								partyYn
+		,TO_CHAR(A.PARTY_END, 'MM-DD')  						partyEnd
+		,A.BOARD_HIT          								boardHit
+		,A.BOARD_DELETE       								boardDelete
+		FROM   TB_PARTY_BOARD A
+		WHERE  1 = 1
+		AND    A.BOARD_SEQ = #boardSeq#
+	</select>
+	
+	<select id="getPartyBoardList" parameterClass="kr.or.ddit.partyBoard.vo.PartyBoardVO" resultClass="kr.or.ddit.partyBoard.vo.PartyBoardVO">
+		SELECT 
+		A.CODE                								code
+		,A.BOARD_SEQ          								boardSeq
+		,A.USER_ID            								userId
+		,A.USER_PROFILE										userProfile
+		,A.BOARD_TITLE        								boardTitle
+		,TO_CHAR(A.BOARD_DATE, 'MM-DD')         			boardDate
+		,A.BOARD_CONTENT      								boardContent
+		,A.REST_CODE          								restCode
+		,A.PRICE              								price
+		,A.DISTANCE           								distance
+		,A.REST_TYPE										restType
+		,(SELECT REST_NAME FROM TB_REST_INFO WHERE REST_CODE = A.REST_CODE) restName
+		,A.PARTY_YN           								partyYn
+		,TO_CHAR(A.PARTY_END, 'MM-DD')          			partyEnd
+		,A.BOARD_HIT          								boardHit
+		,A.BOARD_DELETE       								boardDelete
+		,(SELECT COUNT(*) FROM TB_PARTY_JOIN WHERE BOARD_SEQ = A.BOARD_SEQ) countList
+		FROM   TB_PARTY_BOARD A
+		WHERE  1 = 1
+		AND    A.BOARD_DELETE = 'N'
+		ORDER BY A.PARTY_YN ASC, A.BOARD_SEQ DESC
+	</select>
+	
+	<select id="getPartyBoardAllList" parameterClass="kr.or.ddit.partyBoard.vo.PartyBoardVO" resultClass="kr.or.ddit.partyBoard.vo.PartyBoardVO">
+		SELECT *
+		FROM   TB_PARTY_BOARD
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="countHits" parameterClass="long">
+		UPDATE TB_PARTY_BOARD
+		SET    BOARD_HIT = (BOARD_HIT + 1)
+		WHERE  BOARD_SEQ = #boardSeq#
+	</update>
+</sqlMap>

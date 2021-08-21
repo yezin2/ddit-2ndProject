@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Enjoy your meal right on time! Main page</title>
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
+	rel="stylesheet" type="text/css" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Jua&family=Sunflower:wght@300&display=swap"
+	rel="stylesheet">
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet" />
+<style type="text/css">
+h1, h2, li, a {
+	font-family: 'Jua', sans-serif;
+}
+
+h3, h4, h5, h6, p {
+	font-family: 'Sunflower', sans-serif;
+	font-size: 1.2em;
+}
+
+body {
+	padding-top: 56px;
+}
+</style>
+</head>
+
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand col-lg-2-h1" href="index.html">굿끼제먹</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse " id="navbarResponsive">
+				<ul class="navbar-nav ml-auto col-lg-7-h1">
+					<li class="nav-item"><a class="nav-link" href="#">이벤트 게시판</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">식당검색</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Meal파티
+							게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">커뮤니티 게시판</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">고객 센터</a></li>
+				</ul>
+			</div>
+			<div class="container col-sm-3">
+				<ul class="navbar-nav text-uppercase ml-auto">
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#contact">로그인</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger"
+						href="#contact">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Page Content -->
+	<div class="container">
+
+		<div class="row">
+
+			<!-- Blog Entries Column -->
+			<div class="col-md-8">
+
+				<h1 class="my-4">식당 검색</h1>
+
+				<!-- Blog Post -->
+				<div class="card mb-4">
+
+					<div class="card-body">
+						<h2 class="card-title">가격</h2>
+						<div class="d-flex justify-content-start col-md-12">
+							<button class="btn btn-md btn-success col-md-2" type="button"
+								onclick="alert('1000워언')">5000원</button>
+							&nbsp;
+							<button class="btn btn-md btn-success col-md-2" type="button"
+								onclick="">6000원</button>
+							&nbsp;
+							<button class="btn btn-md btn-success col-md-2" type="button"
+								onclick="">7000원</button>
+							&nbsp;
+							<button class="btn btn-md btn-success col-md-2" type="button"
+								onclick="">8000원</button>
+							&nbsp;
+							<button class="btn btn-md btn-success col-md-2" type="button"
+								onclick="">9000원</button>
+							&nbsp;
+							<button class="btn btn-md btn-success col-md-2" type="button"
+								onclick="">
+								10000원
+							</button>
+						</div>
+						<hr>
+						<h2 class="card-title">거리</h2>
+						<div class="d-flex justify-content-start col-md-12">
+							<button class="btn btn-md btn-info col-md-2" type="button"
+								onclick="searchStreet('1')">
+								3분<br>(100m)
+							</button>
+							&nbsp;
+							<button class="btn btn-md btn-info col-md-2" type="button"
+								onclick="searchStreet('2')">
+								5분<br>(300m)
+							</button>
+							&nbsp;
+							<button class="btn btn-md btn-info col-md-2" type="button"
+								onclick="searchStreet('3')">
+								10분<br>(600m)
+							</button>
+							&nbsp;
+							<button class="btn btn-md btn-info col-md-2" type="button"
+								onclick="searchStreet('4')">
+								15분<br>(900m)
+							</button>
+							&nbsp;
+						</div>
+						<hr>
+						<h2 class="card-title">분류</h2>
+						<div class="d-flex justify-content-start col-md-12">
+							<button class="btn btn-md btn-danger col-md-2" type="button"
+								onclick="alert('분류함수')">한식</button>
+							&nbsp;
+							<button class="btn btn-md btn-danger col-md-2" type="button"
+								onclick="">중식</button>
+							&nbsp;
+							<button class="btn btn-md btn-danger col-md-2" type="button"
+								onclick="">양식</button>
+							&nbsp;
+							<button class="btn btn-md btn-danger col-md-2" type="button"
+								onclick="">일식</button>
+							&nbsp;
+						</div>
+
+
+
+					</div>
+					<div class="card-footer text-muted col-12">
+					<h2 class="card-title">검색결과</h2>
+						<table class="table col-12">
+							<tbody class="col-12">
+								<tr class="d-flex justify-content-start">
+									<th class="col-6">식당이름</th>
+									<th class="col-2">가격</th>
+									<th class="col-2">거리</th>
+									<th class="col-2">분류</th>
+								</tr>
+								<tr class="d-flex justify-content-start">
+									<td class="col-6">롤린</td>
+									<td class="col-2">5000원</td>
+									<td class="col-2">3m</td>
+									<td class="col-2">한식 </td>
+								</tr>
+								<tr class="d-flex justify-content-start">
+									<td class="col-6">롤린</td>
+									<td class="col-2">6000원</td>
+									<td class="col-2">5m</td>
+									<td class="col-2">양식 </td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- Search Widget -->
+				<div class="card my-4">
+					<h5 class="card-header">Search</h5>
+					<div class="card-body">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="식당 이름 검색하기">
+							<span class="input-group-append">
+								<button class="btn btn-secondary" type="button">Go!</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sidebar Widgets Column -->
+			<div class="col-md-4">
+				<!-- Side Widget -->
+				<div class="card my-4">
+					<h5 class="card-header">김밥천국</h5>
+					<img src="assets/img/logos/1.jpg">
+					<div class="card-body">대충 식당 좋으니까 먹으라는 내용</div>
+				</div>
+
+				<div class="card my-4">
+					<h5 class="card-header">울트라 콜 2번째</h5>
+					<img src="assets/img/logos/1.jpg">
+					<div class="card-body">대충 식당 좋으니까 먹으라는 내용</div>
+				</div>
+
+				<div class="card my-4">
+					<h5 class="card-header">울트라 콜 2번째</h5>
+					<div class="card-body">대충 식당 좋으니까 먹으라는 내용</div>
+				</div>
+				
+			</div>
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your
+				Website 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Third party plugin JS-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+	<!-- Contact form JS-->
+	<script src="assets/mail/jqBootstrapValidation.js"></script>
+	<script src="assets/mail/contact_me.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+	
+	
+	
+	<!-- 테이블 뿌려주기 -->
+	<script>
+		function searchStreet(streetType){
+			if(streetType==1){ // 3분 
+				$.ajax({
+					url : "/DPJ/searchRest/list.do?streetType=" + streetType
+					, type : "post"
+// 					, data : {"userId" : userId}
+// 					, dataType : "json"
+					, async : false
+					, success : function(data){
+						console.log(data);
+						if(data > 0){
+							idFlag = false;
+							var str = "중복된 아이디가 존재합니다.";
+					    	formSetting(str,"#spUserId",false);
+					    	$("#userId").focus();
+					    	return;
+						}else{
+							idFlag = true;
+							var str = "사용가능한 아이디입니다.";
+					    	formSetting(str,"#spUserId",true);
+						}
+					}
+					, error : function(xhr){
+						console.log(xhr);
+						alert("ID 중복 검사 중 오류가 발생했습니다. 관리자에게 문의하세요.");
+					}
+				});
+			}else if(streetType==2){ // 5분 
+				
+			}else if(streetType==3){ // 10분 
+				
+			}else if(streetType==4){ // 15분 
+				
+			}
+		}
+	</script>
+</body>
+</html>

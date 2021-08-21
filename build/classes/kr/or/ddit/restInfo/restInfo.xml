@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="restinfo">
+
+	<select id="selectRestInfoListAll" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		SELECT
+			  REST_CODE	      restCode
+			, USER_ID           userId
+			, REST_CEO_NAME     restCeoName
+			, REST_REG_NUM      restRegNum
+			, REST_TYPE         restType
+			, REST_NAME         restName
+			, REST_DISTANCE     restDistance
+			, REST_ZIP          restZip
+			, REST_ADD1         restAdd1
+			, REST_ADD2         restAdd2
+			, REST_TEL          restTel
+			, REST_LAT          restLat
+			, REST_LNG          restLng
+			, REST_REVIEW_CNT   restReviewCnt
+			, REST_FAV_CNT      restFavCnt
+			, REST_SCORE_AVR    restScoreAvr
+			, ATCH_FILE_ID      atchFileId
+			, ATCH_REG_ID       atchRegId
+		FROM TB_REST_INFO
+	</select>
+
+	<select id="getRest" parameterClass="String" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		   SELECT 
+					REST_CODE        restCode
+					,USER_ID         userId
+					,REST_CEO_NAME   restCeoName
+					,REST_REG_NUM    restRegNum
+					,REST_TYPE       restType
+					,REST_NAME       restName
+					,REST_DISTANCE   restDistance
+					,REST_ZIP        restZip
+					,REST_ADD1       restAdd1
+					,REST_ADD2       restAdd2
+					,REST_TEL        restTel
+					,REST_LAT        restLat
+					,REST_LNG        restLng
+					,REST_REVIEW_CNT restReviewCnt
+					,REST_FAV_CNT    restFavCnt
+					,REST_SCORE_AVR  restScoreAvr
+					,ATCH_FILE_ID    atchFileId
+					,ATCH_REG_ID     atchRegId
+				FROM TB_REST_INFO
+				WHERE REST_CODE = #restCode#
+	</select>
+	
+	<select id="getSearchName" parameterClass="kr.or.ddit.restInfo.vo.RestInfoVO" resultClass="kr.or.ddit.restInfo.vo.RestInfoVO">
+		   SELECT A.REST_NAME restName
+		   		,A.REST_FAV_CNT restFavCnt
+		   		,A.REST_CEO_NAME restCeoName
+		   		,A.REST_ADD1 restAdd1
+		   		,A.REST_ADD2 restAdd2
+		   		,A.REST_REVIEW_CNT restReviewCnt
+		   		,A.REST_DISTANCE restDistance
+		   		,A.REST_TYPE restType
+		   		,A.REST_CODE restCode
+		   		,B.MENU_NAME menuName
+		   		,B.MENU_PRICE menuPrice
+		   FROM TB_REST_INFO A INNER JOIN TB_MENU B ON(A.REST_CODE = B.REST_CODE)
+		   WHERE 1=1
+		    <isNotEmpty property= "restName" prepend="AND">
+		    	A.REST_NAME LIKE '%' || #restName# || '%'
+		    </isNotEmpty>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="menu">
+	<select id="getSearchMenu" parameterClass="kr.or.ddit.menu.vo.MenuVO" resultClass="kr.or.ddit.menu.vo.MenuVO">
+		   SELECT A.REST_NAME restName
+		   		,A.REST_FAV_CNT restFavCnt
+		   		,A.REST_CEO_NAME restCeoName
+		   		,A.REST_ADD1 restAdd1
+		   		,A.REST_ADD2 restAdd2
+		   		,A.REST_REVIEW_CNT restReviewCnt
+		   		,A.REST_DISTANCE restDistance
+		   		,A.REST_TYPE restType
+		   		,A.REST_CODE restCode
+		   		,A.REST_LAT restLat
+		   		,A.REST_LNG restLng
+		   		,B.MENU_NAME menuName
+		   		,B.MENU_PRICE menuPrice
+		   FROM TB_REST_INFO A INNER JOIN TB_MENU B ON(A.REST_CODE = B.REST_CODE)
+		   WHERE 1=1
+		    <isNotEmpty property= "restDistance" prepend="AND">
+		    	A.REST_DISTANCE = #restDistance#
+		    </isNotEmpty>
+		    <isNotEmpty property="restType" prepend="AND">
+		    	A.REST_TYPE = #restType#
+		    </isNotEmpty>
+		    <isNotEmpty property="menuPrice">
+		    	<isEqual prepend="AND" property="menuPrice" compareValue="10000">
+		    		B.MENU_PRICE >= #menuPrice#
+		    	</isEqual>
+		    	<isEqual prepend="AND" property="menuPrice" compareValue="9000">
+		    		<![CDATA[#menuPrice# <= B.MENU_PRICE AND B.MENU_PRICE <= #menuPrice#+999 ]]>
+		    	</isEqual> 
+		    	<isEqual prepend="AND" property="menuPrice" compareValue="8000">
+		    		<![CDATA[#menuPrice# <= B.MENU_PRICE AND B.MENU_PRICE <= #menuPrice#+999 ]]>
+		    	</isEqual> 
+		    	<isEqual prepend="AND" property="menuPrice" compareValue="7000">
+		    		<![CDATA[#menuPrice# <= B.MENU_PRICE AND B.MENU_PRICE <= #menuPrice#+999 ]]>
+		    	</isEqual> 
+		    	<isEqual prepend="AND" property="menuPrice" compareValue="6000">
+		    		<![CDATA[#menuPrice# <= B.MENU_PRICE AND B.MENU_PRICE <= #menuPrice#+999 ]]>
+		    	</isEqual> 
+		    	<isEqual prepend="AND" property="menuPrice" compareValue="5000">
+		    		<![CDATA[#menuPrice# <= B.MENU_PRICE AND B.MENU_PRICE <= #menuPrice#+999 ]]>
+		    	</isEqual>
+		    </isNotEmpty>
+	</select>
+	
+	<select id="getSearchName" parameterClass="String" resultClass="kr.or.ddit.menu.vo.MenuVO">
+		   SELECT A.REST_NAME restName
+		   		,A.REST_FAV_CNT restFavCnt
+		   		,A.REST_CEO_NAME restCeoName
+		   		,A.REST_ADD1 restAdd1
+		   		,A.REST_ADD2 restAdd2
+		   		,A.REST_REVIEW_CNT restReviewCnt
+		   		,A.REST_DISTANCE restDistance
+		   		,A.REST_TYPE restType
+		   		,A.REST_CODE restCode
+		   		,B.MENU_NAME menuName
+		   		,B.MENU_PRICE menuPrice
+		   FROM TB_REST_INFO A INNER JOIN TB_MENU B ON(A.REST_CODE = B.REST_CODE)
+		   WHERE 1=1 
+ 		    <isNotEmpty prepend="and">
+		    	A.REST_NAME LIKE '%' || #restName# || '%'
+ 		    </isNotEmpty> 
+	</select>
+</sqlMap>

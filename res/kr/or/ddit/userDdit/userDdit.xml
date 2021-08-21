@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+         PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+         "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="userddit">
+	<select id="checkMailUserDdit" parameterClass="String" resultClass="int">
+		SELECT 	count(*) cnt
+		FROM TB_USER_DDIT
+		WHERE 	1=1
+				AND DDIT_MAIL = #dditMail#
+	</select>
+	
+	
+	<select id="getUserDdit" parameterClass="String" resultClass="userDditVO">
+		SELECT 	USER_ID	userId
+				,DDIT_NAME dditName
+				,DDIT_CLASS dditClass
+				,DDIT_HP dditHp
+				,DDIT_MAIL dditMail
+				,TO_CHAR(DDIT_BIR,'YY-MM-DD') dditBir
+				,RECV_MAIL recvMail
+				,POLICY_YN policyYn
+		FROM TB_USER_DDIT
+		WHERE 	1=1
+				AND USER_ID = #userId#
+	</select>
+	
+	<insert id="insertUserDdit" parameterClass="userDditVO">
+		INSERT INTO TB_USER_DDIT(
+		    USER_ID
+		    ,DDIT_NAME
+		    ,DDIT_CLASS
+		    ,DDIT_HP
+		    ,DDIT_MAIL
+		    ,DDIT_BIR
+		    ,RECV_MAIL
+		    ,POLICY_YN)
+		VALUES(
+		    #userId#
+		    ,#dditName#
+		    ,#dditClass#
+		    ,#dditHp#
+		    ,#dditMail#
+		    ,#dditBir#
+		    ,#recvMail#
+		    ,#policyYn#
+		)
+	</insert>
+	
+	<update id="updateUserDdit" parameterClass="kr.or.ddit.userDdit.vo.UserDditVO">
+		{CALL PROC_UP_USER_DDIT_ALL(#userId#,#dditBir#,#dditHp#,#dditMail#,#recvMail#,#userPhoto#)}
+	</update>
+</sqlMap>

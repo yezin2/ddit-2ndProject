@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="comment">
+
+	<insert id="insertComment" parameterClass="kr.or.ddit.comment.vo.CommentVO">
+		
+		INSERT INTO TB_COMMENT (
+			CODE
+			, REPLY_SEQ
+			, USER_ID
+			, REPLY_DATE
+			, REPLY_CONTENT
+			, BOARD_SEQ
+		) VALUES (
+			#code#	
+			, SEQ_COMMENT.NEXTVAL	
+			, #userId#	
+			, SYSDATE	
+			, #replyContent#	
+			, #boardSeq#
+		)
+		
+	</insert>
+	
+	<update id="updateComment" parameterClass="kr.or.ddit.comment.vo.CommentVO">
+	
+		UPDATE TB_COMMENT
+		SET	   REPLY_CONTENT = #replyContent#
+			 , REPLY_DATE = SYSDATE
+		WHERE  REPLY_SEQ = #replySeq# 
+	
+	</update>
+	
+	<!-- deleteGroupCode지만 REPLY_DELETE를 Y로 업데이트 -->
+	<delete id="deleteComment" parameterClass="long">
+	
+		UPDATE TB_COMMENT
+		SET	   REPLY_DELETE = 'Y'
+		WHERE  REPLY_SEQ = #replySeq#
+	
+	</delete>
+	
+	<select id="getComment" parameterClass="long" resultClass="kr.or.ddit.comment.vo.CommentVO">
+	
+		SELECT USER_ID         userId
+			 , REPLY_DATE      replyDate
+			 , REPLY_CONTENT   replyContent
+		FROM   TB_COMMENT
+		WHERE  REPLY_SEQ = #replySeq#
+			 
+	
+	</select>
+	
+	<!-- 일반회원이 보는 게시글 속 댓글 목록 -->
+	<select id="getCommentList" parameterClass="kr.or.ddit.comment.vo.CommentVO" resultClass="kr.or.ddit.comment.vo.CommentVO">
+	
+		SELECT USER_ID         userId
+			 , TO_CHAR(REPLY_DATE, 'YY/MM/DD HH24:MI')      replyDate
+			 , REPLY_CONTENT   replyContent
+			 , REPLY_SEQ	   replySeq
+		FROM   TB_COMMENT
+		WHERE  CODE = #code#
+		AND    BOARD_SEQ = #boardSeq#
+		AND	   REPLY_DELETE = 'N'
+		ORDER BY REPLY_SEQ
+	
+	</select>
+	
+	<select id="getCommentCount" parameterClass="kr.or.ddit.comment.vo.CommentVO" resultClass="int">
+		
+		SELECT COUNT(*) cnt
+		FROM   TB_COMMENT
+		WHERE  CODE = #code#
+		AND    BOARD_SEQ = #boardSeq#
+		AND	   REPLY_DELETE = 'N'
+		
+	</select>
+	
+	<!-- 관리자가 보는 게시글 속 댓글 목록  / 구현 아직, dao, service 없음 -->
+	<select id="getCommentListAdmin" parameterClass="kr.or.ddit.comment.vo.CommentVO" resultClass="kr.or.ddit.comment.vo.CommentVO">
+	
+		SELECT USER_ID         userId
+			 , TO_CHAR(REPLY_DATE, 'YY/MM/DD HH24:MI')      replyDate
+			 , REPLY_CONTENT   replyContent
+			 , REPLY_SEQ	   replySeq
+		FROM   TB_COMMENT
+		WHERE  CODE = #code#
+		AND    BOARD_SEQ = #boardSeq#
+		ORDER BY REPLY_SEQ
+	
+	</select>
+	
+	<!-- 관리자가 보는 게시판별 / 구현 아직, dao, service 없음 -->
+	<select id="getBoardCommentList" parameterClass="String" resultClass="kr.or.ddit.comment.vo.CommentVO">
+	
+		SELECT USER_ID         userId
+			 , TO_CHAR(REPLY_DATE, 'YY/MM/DD HH24:MI')      replyDate
+			 , REPLY_CONTENT   replyContent
+			 , REPLY_SEQ	   replySeq
+			 , REPLY_DELETE    replyDelete
+		FROM   TB_COMMENT
+		WHERE  1 = 1
+		AND	   CODE = #code#
+		ORDER BY REPLY_SEQ DESC
+	
+	</select>
+	
+	<!-- 관리자가 보는 전체 댓글 / 구현 아직, dao, service 없음 -->
+	<select id="getAllCommentList" parameterClass="kr.or.ddit.comment.vo.CommentVO" resultClass="kr.or.ddit.comment.vo.CommentVO">
+	
+		SELECT USER_ID         userId
+			 , TO_CHAR(REPLY_DATE, 'MM/DD')      replyDate
+			 , REPLY_CONTENT   replyContent
+			 , REPLY_SEQ	   replySeq
+			 , REPLY_DELETE    replyDelete
+			 , CODE			   code
+			 , BOARD_SEQ	   boardSeq
+		FROM   TB_COMMENT
+		ORDER BY REPLY_SEQ DESC
+	
+	</select>
+	
+</sqlMap>

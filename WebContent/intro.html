@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+	<head>
+		<title>Enjoy Your Meal Right On Time!</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<!-- 	<css> -->
+		<link rel="stylesheet" href="/DPJ/assets/css/intro.css?v=1" />
+		<script type="text/javascript">
+		function logout(url){ 
+			alert("로그아웃 합니다.");
+			movePageByGet(url);
+		}
+
+		function movePageByGet(url){
+			  // 페이지이동 1
+			  location.href = url;
+		}
+		</script>
+	</head>
+	
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<h1>굿끼제먹</h1>
+				<p>아무리 바빠도 끼니는 제 때 먹어야겠죠?
+				<br>
+				대덕인재개발원 학생이라면 누구나 누리는 당연한 권리! 굿끼제먹입니다.
+				<br>
+				혼자 먹기 싫은 사람, 한 끼를 먹더라도 제대로 먹고 싶은 사람 어서 어서 오세요~
+			</header>
+
+		<!-- Signup Form -->
+			<form id="signup-form" method="post" action="#">
+				<input type="button" value="홈페이지 바로가기" onclick="movePageByGet('/DPJ/main/main.do')">
+				<input type="button" value="로그인" onclick="movePageByGet('/DPJ/logInOut/login.do')">
+				<input type="button" value="회원가입" onclick="movePageByGet('/DPJ/register/registerType.do')">				
+			</form>
+			
+
+		<!-- Footer -->
+			<footer id="footer">
+				
+				<ul class="copyright">
+					<li>&copy; Untitled.</li><li>Credits : ddit 2021 01 403 team #1</a></li>
+				</ul>
+			</footer>
+
+
+		<script src="/DPJ/assets/js/intro.js"></script>
+
+	</body>
+</html>
